@@ -66,18 +66,13 @@
     function nav() {
         new AutocJs({
             article: '#content',
-            // isOnlyAnchors: true,
             selector: 'h1,h2',
             title: '文章目录',
             position: 'outside',
             anchorAt: 'front',
-            // 是否生成文章导读导航
             isGenerateOutline: true,
-            // 是否在文章导读导航中显示段落章节编号
             isGenerateOutlineChapterCode: false,
-            // 是否在正文的文章标题中显示段落章节编号
             isGenerateHeadingChapterCode: false,
-            // 是否在正文的文章标题中创建锚点
             isGenerateHeadingAnchor: true
         });
     }
@@ -97,7 +92,7 @@
 
         }
     }
-    http.open('GET', "https://yxzlwz.github.io/share/share.md", true);
+    http.open('GET', "https://cdn.jsdelivr.net/gh/yxzlwz/share/share.md", true);
     http.send();
 
 </script>
