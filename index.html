@@ -1,0 +1,23 @@
+
+
+<script type="text/javascript" src='https://cdn.jsdelivr.net/npm/marked/marked.min.js'></script>
+<script type="text/javascript">
+    function showMarkdown() {
+        var f = form;
+        var http;
+        if (window.XMLHttpRequest) {
+            http = new XMLHttpRequest();
+        } else {
+            http = new ActiveXObject('Microsoft.XMLHttp');
+        }
+        http.onreadystatechange = function() {
+            if(http.readyState == 4 && http.status == 200) {
+                document.getElementById('content').innerHTML = marked(http.responseText);
+            }
+        }
+
+        // 向服务器发送请求
+        http.open('GET', "", true);
+          http.send();
+      }
+</script>
