@@ -1,23 +1,105 @@
+<!DOCTYPE html>
+<html>
 
-
-<script type="text/javascript" src='https://cdn.jsdelivr.net/npm/marked/marked.min.js'></script>
-<script type="text/javascript">
-    function showMarkdown() {
-        var f = form;
-        var http;
-        if (window.XMLHttpRequest) {
-            http = new XMLHttpRequest();
-        } else {
-            http = new ActiveXObject('Microsoft.XMLHttp');
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>分享</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yaohaixiao/autocjs/dist/css/autoc.min.css">
+    <style>
+        h1 {
+            margin-top: 25px;
         }
-        http.onreadystatechange = function() {
-            if(http.readyState == 4 && http.status == 200) {
-                document.getElementById('content').innerHTML = marked(http.responseText);
+
+        h2 {
+            margin-top: 25px;
+        }
+
+        h3 {
+            margin-top: 20px;
+        }
+
+        h4 {
+            margin-top: 15px;
+        }
+
+        @media screen and (orientation: portrait) {
+            img {
+                width: 100%;
+            }
+
+            .card {
+                padding: 20px 0;
             }
         }
+        @media screen and (orientation: landscape) {
+            img {
+                width: 50%;
+            }
 
-        // 向服务器发送请求
-        http.open('GET', "/README.md", true);
-          http.send();
-      }
+            .card {
+                padding: 20px 10%;
+            }
+        }
+    </style>
+</head>
+
+<body style="padding: 30px;">
+    <div class="card" style="border-radius: 30px;">
+        <div class="card-body">
+            <div id="content"></div>
+        </div>
+    </div>
+</body>
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src='https://cdn.staticfile.org/marked/2.1.1/marked.min.js'></script>
+<script src="https://cdn.jsdelivr.net/gh/yaohaixiao/autocjs/dist/autoc.min.js"></script>
+<script type="text/javascript">
+    function set_target() {
+        $("a").each(function (i, v) {
+            $(v).attr("target", "_blank");
+        });
+    }
+
+    function nav() {
+        new AutocJs({
+            article: '#content',
+            // isOnlyAnchors: true,
+            selector: 'h1,h2',
+            title: '文章目录',
+            position: 'outside',
+            anchorAt: 'front',
+            // 是否生成文章导读导航
+            isGenerateOutline: true,
+            // 是否在文章导读导航中显示段落章节编号
+            isGenerateOutlineChapterCode: false,
+            // 是否在正文的文章标题中显示段落章节编号
+            isGenerateHeadingChapterCode: false,
+            // 是否在正文的文章标题中创建锚点
+            isGenerateHeadingAnchor: true
+        });
+    }
+
+    var http;
+    if (window.XMLHttpRequest) {
+        http = new XMLHttpRequest();
+    } else {
+        http = new ActiveXObject('Microsoft.XMLHttp');
+    }
+    http.onreadystatechange = function () {
+        if (http.readyState == 4 && http.status == 200) {
+            document.getElementById('content').innerHTML = marked(http.responseText);
+            console.log("OK")
+            setTimeout(set_target, 500);
+            setTimeout(nav, 1000);
+
+        }
+    }
+    http.open('GET', "https://yxzlwz.github.io/share/share.md", true);
+    http.send();
+
 </script>
+
+</html>
